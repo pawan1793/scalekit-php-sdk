@@ -1,0 +1,33 @@
+{
+    "name": "pawanmore/scalekit-php-sdk",
+    "description": "PHP SDK for Scalekit - Enterprise Authentication Platform",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pawan More",
+            "email": "pawan@thaliatechnologies.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "guzzlehttp/guzzle": "^7.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "phpstan/phpstan": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Scalekit\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Scalekit\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+} 

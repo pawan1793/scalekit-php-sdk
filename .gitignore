@@ -1,0 +1,44 @@
+# Composer dependencies
+/vendor/
+
+# Composer related files
+composer.lock
+
+# PHPUnit
+/phpunit.xml
+/phpunit.xml.dist
+/.phpunit.result.cache
+
+# IDE and editor files
+/.idea/
+/.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Coverage reports
+/coverage/
+
+# Test output
+/tests/output/
+
+# Examples output
+/examples/output/
+
+# Build artifacts
+/build/
+
+# Cache
+/cache/
+
+# Misc
+.env
+.env.* 
+
+/examples/custom-test.php
