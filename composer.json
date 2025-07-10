@@ -1,6 +1,7 @@
 {
     "name": "pawanmore/scalekit-php-sdk",
     "description": "PHP SDK for Scalekit - Enterprise Authentication Platform",
+    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -30,4 +31,4 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true
-} 
+}
