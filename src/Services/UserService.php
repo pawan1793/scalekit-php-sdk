@@ -34,9 +34,17 @@ class UserService
     /**
      * Create user
      */
-    public function createUser(string $organizationId, array $userData): array
+    public function createUser(string $organizationId, array $userData,array $queryParams = array()): array
     {
-        return $this->client->request('POST', "/api/v1/organizations/{$organizationId}/users", [
+
+        $query = http_build_query($queryParams);
+        $uri = "/api/v1/organizations/{$organizationId}/users";
+        
+        if ($query) {
+            $uri .= '?' . $query;
+        }
+
+        return $this->client->request('POST', $uri, [
             'json' => $userData
         ]);
     }
