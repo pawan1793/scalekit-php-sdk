@@ -3,6 +3,7 @@
 namespace Scalekit\Services;
 
 use Scalekit\ScalekitClient;
+use Exception;
 
 /**
  * Authentication service for Scalekit
@@ -33,7 +34,7 @@ class AuthService
         ]);
 
         $data = json_decode($response->getBody()->getContents(), true);
-        
+
         if (isset($data['access_token'])) {
             $this->client->setAccessToken($data['access_token']);
         }
@@ -80,7 +81,7 @@ class AuthService
         ]);
 
         $data = json_decode($response->getBody()->getContents(), true);
-        
+
         if (isset($data['access_token'])) {
             $this->client->setAccessToken($data['access_token']);
         }
@@ -133,4 +134,47 @@ class AuthService
     {
         return $this->client->request('GET', '/userinfo');
     }
-} 
+
+    public function getAuthorizationUrl(string $redirectUri, string $scope = 'openid%20profile%20email%20offline_access'): string
+    {
+        $query = http_build_query([
+            'response_type' => 'code',
+            'client_id' => $this->client->getClientId(),
+            'redirect_uri' => $redirectUri,
+            'scope' => $scope
+        ]);
+        return $this->client->getBaseUrl() . '/oauth/authorize?' . $query;
+    }
+
+    public function decodeJwt(string $jwtToken): array
+    {
+        // Split the JWT by dots
+        $parts = explode('.', $jwtToken);
+        if (count($parts) !== 3) {
+            throw new Exception('Invalid JWT token provided');
+        }
+
+        // JWT parts: header, payload, signature
+        list($header, $payload, $signature) = $parts;
+
+        // Decode the payload (base64url)
+        $payloadJson = base64UrlDecode($payload);
+        $payloadArray = json_decode($payloadJson, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Exception('Invalid JSON in payload');
+        }
+
+        return $payloadArray;
+    }
+
+    public function base64UrlDecode(string $data): string
+    {
+        $remainder = strlen($data) % 4;
+        if ($remainder) {
+            $data .= str_repeat('=', 4 - $remainder);
+        }
+        $data = strtr($data, '-_', '+/');
+        return base64_decode($data);
+    }
+}
