@@ -158,7 +158,7 @@ class AuthService
         list($header, $payload, $signature) = $parts;
 
         // Decode the payload (base64url)
-        $payloadJson = base64UrlDecode($payload);
+        $payloadJson = $this->base64UrlDecode($payload);
         $payloadArray = json_decode($payloadJson, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
